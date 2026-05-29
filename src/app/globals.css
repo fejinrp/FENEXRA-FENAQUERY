@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f5f5f3;
+  --surface: #ffffff;
+  --surface-2: #f0f0ed;
+  --surface-3: #e8e8e4;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-2: rgba(0, 0, 0, 0.14);
+  --accent: #00c37a;
+  --accent-dark: #00a366;
+  --accent-bg: rgba(0, 195, 122, 0.09);
+  --text: #0f1117;
+  --text-2: #4b5563;
+  --text-3: #9ca3af;
+  --blue: #2563eb;
+  --amber: #d97706;
+  --red: #dc2626;
+  --purple: #7c3aed;
+
+  /* syntax */
+  --syn-kw: #7c3aed;
+  --syn-str: #00a366;
+  --syn-num: #d97706;
+  --syn-op: #dc2626;
+  --syn-key: #2563eb;
+  --syn-cmt: #9ca3af;
+}
+
+.dark {
+  --bg: #0d0f14;
+  --surface: #13151c;
+  --surface-2: #1a1d27;
+  --surface-3: #222535;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-2: rgba(255, 255, 255, 0.13);
+  --accent: #00c87a;
+  --accent-dark: #00a366;
+  --accent-bg: rgba(0, 200, 122, 0.08);
+  --text: #f0f2f8;
+  --text-2: #8b90a8;
+  --text-3: #4a4f66;
+  --blue: #5eaeff;
+  --amber: #ffb84d;
+  --red: #ff6b6b;
+  --purple: #a78bfa;
+
+  --syn-kw: #a78bfa;
+  --syn-str: #00c87a;
+  --syn-num: #ffb84d;
+  --syn-op: #ff6b6b;
+  --syn-key: #5eaeff;
+  --syn-cmt: #4a5568;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ── Editor textarea ── */
+.code-textarea {
+  font-family: var(--font-geist-mono), 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  background: var(--surface);
+  color: var(--text);
+  border: none;
+  outline: none;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  tab-size: 2;
+}
+.code-textarea::placeholder {
+  color: var(--text-3);
+}
+
+/* ── Syntax highlight ── */
+.syn-kw  { color: var(--syn-kw); }
+.syn-str { color: var(--syn-str); }
+.syn-num { color: var(--syn-num); }
+.syn-op  { color: var(--syn-op); }
+.syn-key { color: var(--syn-key); }
+.syn-cmt { color: var(--syn-cmt); font-style: italic; }
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeIn 0.25s ease both;
+}
+
+/* ══════════════════════════════════════
+   Landing Page — CSS animations (hero)
+   No JS dependency, renders immediately
+══════════════════════════════════════ */
+@keyframes lp-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes lp-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes lp-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes lp-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes orb-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1);   opacity: 0.6; }
+  50%       { transform: translateX(-50%) scale(1.1); opacity: 0.9; }
+}
+@keyframes orb-pulse2 {
+  0%, 100% { transform: scale(1);    opacity: 0.35; }
+  50%       { transform: scale(1.12); opacity: 0.55; }
+}
+
+/* ── Hero element classes ── */
+.lp-badge { animation: lp-down  0.5s  ease 0.05s both; }
+.lp-line1 { animation: lp-up    0.6s  ease 0.15s both; }
+.lp-line2 { animation: lp-up    0.6s  ease 0.28s both; }
+.lp-line3 { animation: lp-up    0.6s  ease 0.41s both; }
+.lp-sub   { animation: lp-up    0.55s ease 0.55s both; }
+.lp-cta   { animation: lp-up    0.5s  ease 0.68s both; }
+.lp-card  { animation: lp-right 0.7s  ease 0.35s both; }
+
+/* ── Scroll-reveal (IntersectionObserver) ── */
+.sr {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.sr.sr-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Orb animation ── */
+.lp-orb1 { animation: orb-pulse  5s ease-in-out infinite; }
+.lp-orb2 { animation: orb-pulse2 6s ease-in-out 1s infinite; }
+
+/* ── Navbar ── */
+.lp-nav-link:hover { color: #f0f2f8 !important; }
+
+/* ── Tool card hover ── */
+.lp-tool-card {
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.lp-tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* ── Responsive Utilities ── */
+@media (max-width: 1024px) {
+  .lp-hero-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .lp-code-card { display: block !important; max-width: 600px; margin: 0 auto; }
+}
+
+@media (max-width: 768px) {
+  .lp-desktop-nav { display: none !important; }
+  .lp-hamburger   { display: flex !important; }
+  .lp-tools-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .lp-stats-grid { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 580px) {
+  .lp-tools-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Premium Glassmorphism ── */
+.glass {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Custom Scrollbar Premium ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 10px;
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* ── Better Typography ── */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+/* ── Card Hovers ── */
+.premium-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+}
